@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option csharp_namespace = "AlbumAPI";
+
+package album;
+
+service AlbumService{
+	rpc AddAlbum (AddAlbumRequest) returns (AddAlbumResponse);
+	rpc GetAlbum (GetAlbumRequest) returns (Album);
+	rpc UpdateAlbum (UpdateAlbumRequest) returns (UpdateAlbumResponse);
+	rpc DeleteAlbum (DeleteAlbumRequest) returns (DeleteAlbumResponse);
+	rpc ListAlbums ( stream ListAlbumsRequest) returns (stream Album);
+}
+
+message Album{
+	string Id = 1;
+	string Title = 2;
+	string Genre = 3;
+	int32 Year = 4;
+	bool Available  = 5;
+}
+message AddAlbumRequest {
+	string Title = 2;
+	string Genre = 3;
+	int32 Year = 4;
+	bool Available  = 5; // default: true
+}
+message AddAlbumResponse{
+	string Id = 1; // unique Id generated during AddRequest
+}
+
+message GetAlbumRequest{
+	string Id = 1;
+}
+
+message UpdateAlbumRequest{
+	string Id = 1;
+	string Title = 2;
+	string Genre = 3;
+	int32 Year = 4;
+	bool Available  = 5;
+}
+message UpdateAlbumResponse{
+	string Title = 2;
+	string Genre = 3;
+	int32 Year = 4;
+	bool Available  = 5;
+}
+
+message DeleteAlbumRequest{
+	string Id = 1;
+}
+message DeleteAlbumResponse{
+	string Id = 1;
+}
+
+message ListAlbumsRequest{};
